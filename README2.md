@@ -4,7 +4,7 @@ structure
 app/
 ---__init__.py
 ---models.py
----routs.py
+---routes.py
 ---utils.py
 run.py
 test_routes.py
@@ -55,8 +55,35 @@ DELETE /assignments/<id>
 Tasks
 GET /tasks
 
+List of functions() in routes.py
+register()
+login()
+logout()
+get_current_user()
+
+Class routes
+create_class()
+get_classes()
+update_class(class_id)
+delete_class(class_id)
+
+Assignment Routes
+create_assignment()
+get_assignments(class_id)
+update_assignment(assignment_id)
+delete_assignment(assignment_id)
+
+Task Routes
+create_tasks()
+get_calendar_tasks()
+get_priority_tasks()
+get_upcomning_tasks()
+
+
 what are we using to front end framework? 
 - React? 
-- html/css/js? 
+- html/css/js?
+
+
 
 
