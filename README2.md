@@ -77,7 +77,7 @@ Task Routes
 create_tasks()
 get_calendar_tasks()
 get_priority_tasks()
-get_upcomning_tasks()
+get_upcoming_tasks()
 
 
 what are we using to front end framework? 
