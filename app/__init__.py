@@ -1,8 +1,5 @@
 from flask import Flask
-<<<<<<< HEAD
 from flask_cors import CORS
-=======
->>>>>>> e85c7116ec52826ff1689e7bd0772ce2f80c448b
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
@@ -12,31 +9,14 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 
-
 def create_app():
     #create the Flask app
     app = Flask(__name__)
-
-<<<<<<< HEAD
-
-def create_app():
-    app = Flask(__name__)
     CORS(app, supports_credentials=True)
 
-    # rest of code...
-    return app
-def create_app():
-    app = Flask(__name__)
-    CORS(app, supports_credentials=True)
-
-    # rest of code...
-    return app
-
-=======
->>>>>>> e85c7116ec52826ff1689e7bd0772ce2f80c448b
     #basic config
-    app.config['SECRET_KEY'] = 'your_secret_key'  # used for sessions/security
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///planner.db'  # database file
+    app.config['SECRET_KEY'] = 'your_secret_key'  #used for sessions/security
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///planner.db'  #database file
 
     #connect extensions to app
     db.init_app(app)
