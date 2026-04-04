@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reminders</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="dashboard-page">
+
+  <div class="sidebar">
+    <h2 class="logo">Study Planner</h2>
+
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="tasks.html">Tasks</a></li>
+      <li><a href="reminders.html" class="active">Reminders</a></li>
+    </ul>
+
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+  </div>
+
+  <div class="main-content">
+    <h1>Reminders</h1>
+
+    <div class="dashboard-box">
+      <ul id="reminderList">
+        <li onclick="showReminder('Finish Homework', 'Due April 5', 'High Priority')">
+          Finish Homework
+        </li>
+
+        <li onclick="showReminder('Security Quiz', 'April 7', 'Medium Priority')">
+          Security Quiz
+        </li>
+
+        <li onclick="showReminder('Project Draft', 'April 8', 'High Priority')">
+          Project Draft
+        </li>
+      </ul>
+    </div>
+
+    <div class="dashboard-box" id="reminderDetails">
+      <h2>Reminder Details</h2>
+      <p>Select a reminder</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

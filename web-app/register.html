@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Student Study Planner</h1>
+    <h2>Register</h2>
+
+    <input type="text" placeholder="Username" id="registerUsername">
+    <input type="email" placeholder="Email" id="registerEmail">
+    <input type="password" placeholder="Password" id="registerPassword">
+
+    <button onclick="registerUser()">Create Account</button>
+
+    <p class="register-link">
+      Already have an account? <span onclick="goToLogin()">Back to Sign In</span>
+    </p>
+
+    <p id="registerMessage"></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

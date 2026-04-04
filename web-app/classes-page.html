@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Classes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="dashboard-page">
+
+  <div class="sidebar">
+    <h2 class="logo">Study Planner</h2>
+
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="classes.html" class="active">Classes</a></li>
+      <li><a href="tasks.html">Tasks</a></li>
+    </ul>
+
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+  </div>
+
+  <div class="main-content">
+    <h1>Classes</h1>
+
+    <div class="dashboard-box">
+      <h2>Add Class</h2>
+
+      <input type="text" placeholder="Class Name" id="className">
+      <button onclick="addClass()">Add Class</button>
+    </div>
+
+    <div class="dashboard-box">
+      <h2>Your Classes</h2>
+      <ul id="classList">
+        <li>Math</li>
+        <li>Cybersecurity</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Task</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="login-container">
+
+  <h1>Add Task</h1>
+
+  <input type="text" placeholder="Title" id="taskTitle">
+
+  <input type="text" placeholder="Class" id="taskClass">
+
+  <input type="date" id="taskDate">
+
+  <select id="taskPriority">
+    <option value="">Priority</option>
+    <option>High</option>
+    <option>Medium</option>
+    <option>Low</option>
+  </select>
+
+  <button onclick="saveTask()">Save Task</button>
+
+  <p class="register-link">
+    <span onclick="goToTasks()">Back to Tasks</span>
+  </p>
+
+  <p id="taskMessage"></p>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

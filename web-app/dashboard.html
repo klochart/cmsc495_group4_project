@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="dashboard-page">
+
+    <div class="sidebar">
+      <h2 class="logo">Study Planner</h2>
+
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="classes.html">Classes</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="#">Calendar</a></li>
+      </ul>
+
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+
+    <div class="main-content">
+      <div class="topbar">
+        <h1>Dashboard</h1>
+        <p>Welcome back</p>
+      </div>
+
+      <div class="summary-cards">
+        <div class="card">
+          <h3>Total Classes</h3>
+          <p>4</p>
+        </div>
+
+        <div class="card">
+          <h3>Total Tasks</h3>
+          <p>9</p>
+        </div>
+
+        <div class="card">
+          <h3>Due This Week</h3>
+          <p>3</p>
+        </div>
+      </div>
+
+      <div class="dashboard-sections">
+        <div class="dashboard-box">
+          <h2>Upcoming Tasks</h2>
+          <ul>
+            <li>Database Homework - April 5</li>
+            <li>Security Quiz - April 7</li>
+            <li>Project Draft - April 8</li>
+          </ul>
+        </div>
+
+        <div class="dashboard-box">
+          <h2>Priority Tasks</h2>
+          <ul>
+            <li>Finish login page</li>
+            <li>Start dashboard layout</li>
+            <li>Review backend routes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

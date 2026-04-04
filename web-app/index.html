@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Student Study Planner</h1>
+    <h2>Login</h2>
+
+    <input type="text" placeholder="Username" id="username">
+
+    <div class="password-container">
+      <input type="password" placeholder="Password" id="password">
+      <span onclick="togglePassword()">Show</span>
+    </div>
+
+    <p class="forgot-password" onclick="forgotPassword()">Forgot Password?</p>
+
+    <button onclick="login()">Sign In</button>
+
+    <p class="register-link">
+      Don’t have an account? <span onclick="goToRegister()">Register</span>
+    </p>
+
+    <p id="error"></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
