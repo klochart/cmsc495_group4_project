@@ -10,12 +10,10 @@ from .utils import parse_date
 main = Blueprint('main', __name__)
 
 #HOME
-
 @main.route('/')
 def index():
     #just a test route to see if server is working
     return jsonify({'message': 'Study Planner API running'})
-
 
 #AUTH
 
@@ -32,7 +30,7 @@ def register():
     if User.query.filter_by(username=data['username']).first():
         return jsonify({'message': 'User exists'}), 400
 
-    #hash password so we dont store plain text
+    #hash password so we don't store plain text
     hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
 
     #create user and save
@@ -41,7 +39,6 @@ def register():
     db.session.commit()
 
     return jsonify({'message': 'User created'}), 201
-
 
 @main.route('/login', methods=['POST'])
 def login():
@@ -54,13 +51,15 @@ def login():
     #find user in database
     user = User.query.filter_by(username=data.get('username')).first()
 
+    if not user:
+        return jsonify({'message': 'Invalid username'}), 401  # Username does not exist
+
     #check password
-    if user and bcrypt.check_password_hash(user.password, data.get('password')):
-        login_user(user)  # logs user in
+    if bcrypt.check_password_hash(user.password, data.get('password')):
+        login_user(user)  # Logs user in
         return jsonify({'message': 'Logged in'}), 200
-
-    return jsonify({'message': 'Invalid login'}), 401
-
+    else:
+        return jsonify({'message': 'Invalid password'}), 401  # Incorrect password
 
 @main.route('/logout')
 @login_required
@@ -69,13 +68,11 @@ def logout():
     logout_user()
     return jsonify({'message': 'Logged out'})
 
-
 @main.route('/me')
 @login_required
 def me():
-    #returns current logged in user info
+    #returns current logged-in user info
     return jsonify({'id': current_user.id, 'username': current_user.username})
-
 
 #CLASSES
 
@@ -95,7 +92,6 @@ def create_class():
 
     return jsonify({'message': 'Class created'}), 201
 
-
 @main.route('/classes', methods=['GET'])
 @login_required
 def get_classes():
@@ -107,7 +103,6 @@ def get_classes():
         result.append({'id': c.id, 'name': c.name})
 
     return jsonify(result)
-
 
 @main.route('/classes/<int:id>', methods=['PUT'])
 @login_required
@@ -126,7 +121,6 @@ def update_class(id):
 
     return jsonify({'message': 'Updated'})
 
-
 @main.route('/classes/<int:id>', methods=['DELETE'])
 @login_required
 def delete_class(id):
@@ -140,7 +134,6 @@ def delete_class(id):
     db.session.commit()
 
     return jsonify({'message': 'Deleted'})
-
 
 #ASSIGNMENTS
 
@@ -181,7 +174,6 @@ def create_assignment():
 
     return jsonify({'message': 'Assignment created'}), 201
 
-
 @main.route('/assignments/<int:class_id>', methods=['GET'])
 @login_required
 def get_assignments(class_id):
@@ -203,7 +195,6 @@ def get_assignments(class_id):
         })
 
     return jsonify(result)
-
 
 @main.route('/assignments/<int:id>', methods=['PUT'])
 @login_required
@@ -230,7 +221,6 @@ def update_assignment(id):
 
     return jsonify({'message': 'Updated'})
 
-
 @main.route('/assignments/<int:id>', methods=['DELETE'])
 @login_required
 def delete_assignment(id):
@@ -245,13 +235,12 @@ def delete_assignment(id):
 
     return jsonify({'message': 'Deleted'})
 
-
 #TASKS
 
 @main.route('/tasks', methods=['GET'])
 @login_required
 def get_tasks():
-    #get all assignments as tasks
+    #det all assignments as tasks
     assignments = Assignment.query.join(Class).filter(
         Class.user_id == current_user.id
     ).all()

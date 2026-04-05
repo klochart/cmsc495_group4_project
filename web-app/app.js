@@ -7,7 +7,7 @@ function login() {
   if (error) error.innerText = "";
 
   if (!username || !password) {
-    if (error) error.innerText = "Fill all fields";
+    if (error) error.innerText = "Please fill out both username and password.";
     return;
   }
 
@@ -18,7 +18,7 @@ function login() {
     },
     credentials: "include",
     body: JSON.stringify({
-      email: username,
+      username: username,  //fixed this issue
       password: password
     })
   })
@@ -26,8 +26,8 @@ function login() {
   .then(data => {
     console.log("Login:", data);
 
-    if (data.message || data.user) {
-      window.location.href = "dashboard.html";
+    if (data.message === "Logged in") {
+      window.location.href = "dashboard.html";  // redirect to dashboard
     } else {
       if (error) error.innerText = data.error || "Login failed";
     }
@@ -37,7 +37,6 @@ function login() {
     if (error) error.innerText = "Server error";
   });
 }
-
 
 // ===================== REGISTER =====================
 function registerUser() {
