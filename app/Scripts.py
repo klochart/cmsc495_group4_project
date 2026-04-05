@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-##get all the registered users by running this
+##get all the registered users by running this script
 def get_all_users():
     #get the absolute path to the planner.db file
     db_path = os.path.join(os.path.dirname(__file__), '..', 'instance', 'planner.db')
