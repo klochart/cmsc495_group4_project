@@ -166,3 +166,14 @@ function loadClasses() {
   })
   .catch(err => console.log(err));
 }
+//added this
+// ===================== REDIRECTION FUNCTIONS =====================
+// Redirects to the registration page
+function goToRegister() {
+  window.location.href = "register.html";  // Redirect to the register page
+}
+
+// Redirects to the login page
+function goToLogin() {
+  window.location.href = "index.html";  // Redirect to the login page
+}
