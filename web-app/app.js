@@ -17,17 +17,14 @@ function login() {
       "Content-Type": "application/json"
     },
     credentials: "include",
-    body: JSON.stringify({
-      username: username,  //fixed this issue
-      password: password
-    })
+    body: JSON.stringify({ username, password })
   })
   .then(res => res.json())
   .then(data => {
     console.log("Login:", data);
 
     if (data.message === "Logged in") {
-      window.location.href = "dashboard.html";  // redirect to dashboard
+      window.location.href = "dashboard.html";
     } else {
       if (error) error.innerText = data.error || "Login failed";
     }
@@ -37,6 +34,7 @@ function login() {
     if (error) error.innerText = "Server error";
   });
 }
+
 
 // ===================== REGISTER =====================
 function registerUser() {
@@ -60,11 +58,7 @@ function registerUser() {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      username: username,
-      email: email,
-      password: password
-    })
+    body: JSON.stringify({ username, email, password })
   })
   .then(res => res.json())
   .then(data => {
@@ -99,7 +93,6 @@ function forgotPassword() {
     return;
   }
 
-  // backend may not support this yet → placeholder
   if (message) {
     message.innerText = "If this email exists, a reset link would be sent.";
   }
@@ -165,14 +158,98 @@ function loadClasses() {
   })
   .catch(err => console.log(err));
 }
-//added this
-// ===================== REDIRECTION FUNCTIONS =====================
-// Redirects to the registration page
-function goToRegister() {
-  window.location.href = "register.html";  // Redirect to the register page
+
+
+// ===================== ADD CLASS =====================
+function addClass() {
+  const input = document.getElementById("className");
+  const newClass = input.value.trim();
+
+  if (!newClass) return;
+
+  fetch("http://127.0.0.1:5000/classes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify({ name: newClass })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Added class:", data);
+    input.value = "";
+    loadClasses();
+  })
+  .catch(err => console.log(err));
 }
 
-// Redirects to the login page
+
+// ===================== SAVE TASK =====================
+function saveTask() {
+  const title = document.getElementById("taskTitle").value;
+  const taskClass = document.getElementById("taskClass").value;
+  const date = document.getElementById("taskDate").value;
+  const priority = document.getElementById("taskPriority").value;
+  const message = document.getElementById("taskMessage");
+
+  if (!title) {
+    if (message) {
+      message.style.color = "red";
+      message.innerText = "Title is required";
+    }
+    return;
+  }
+
+  fetch("http://127.0.0.1:5000/tasks", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify({
+      title: title,
+      class: taskClass,
+      date: date,
+      priority: priority
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Task saved:", data);
+
+    if (message) {
+      message.style.color = "green";
+      message.innerText = "Task saved!";
+    }
+
+    setTimeout(() => {
+      goToTasks();
+    }, 800);
+  })
+  .catch(err => {
+    console.log(err);
+    if (message) {
+      message.style.color = "red";
+      message.innerText = "Error saving task";
+    }
+  });
+}
+
+
+// ===================== NAVIGATION =====================
+function goToRegister() {
+  window.location.href = "register.html";
+}
+
 function goToLogin() {
-  window.location.href = "index.html";  // Redirect to the login page
+  window.location.href = "index.html";
+}
+
+function goToTasks() {
+  window.location.href = "task-list.html";
+}
+
+function goToAddTask() {
+  window.location.href = "add-task.html";
 }
