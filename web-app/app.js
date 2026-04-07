@@ -35,7 +35,6 @@ function login() {
   });
 }
 
-
 // ===================== REGISTER =====================
 function registerUser() {
   const username = document.getElementById("registerUsername").value;
@@ -82,7 +81,6 @@ function registerUser() {
   });
 }
 
-
 // ===================== FORGOT PASSWORD =====================
 function forgotPassword() {
   const email = document.getElementById("forgotEmail").value;
@@ -98,7 +96,6 @@ function forgotPassword() {
   }
 }
 
-
 // ===================== LOGOUT =====================
 function logout() {
   fetch("http://127.0.0.1:5000/logout", {
@@ -110,7 +107,6 @@ function logout() {
   })
   .catch(err => console.log(err));
 }
-
 
 // ===================== LOAD TASKS =====================
 function loadTasks() {
@@ -135,7 +131,6 @@ function loadTasks() {
   .catch(err => console.log(err));
 }
 
-
 // ===================== LOAD CLASSES =====================
 function loadClasses() {
   fetch("http://127.0.0.1:5000/classes", {
@@ -158,7 +153,6 @@ function loadClasses() {
   })
   .catch(err => console.log(err));
 }
-
 
 // ===================== ADD CLASS =====================
 function addClass() {
@@ -184,7 +178,6 @@ function addClass() {
   .catch(err => console.log(err));
 }
 
-
 // ===================== SAVE TASK =====================
 function saveTask() {
   const title = document.getElementById("taskTitle").value;
@@ -201,6 +194,7 @@ function saveTask() {
     return;
   }
 
+  // Update field names for consistency with the backend
   fetch("http://127.0.0.1:5000/tasks", {
     method: "POST",
     headers: {
@@ -209,8 +203,8 @@ function saveTask() {
     credentials: "include",
     body: JSON.stringify({
       title: title,
-      class: taskClass,
-      date: date,
+      class_id: taskClass,  // class_id instead of class
+      due_date: date,       // due_date instead of date
       priority: priority
     })
   })
@@ -236,7 +230,6 @@ function saveTask() {
   });
 }
 
-
 // ===================== NAVIGATION =====================
 function goToRegister() {
   window.location.href = "register.html";
@@ -252,4 +245,34 @@ function goToTasks() {
 
 function goToAddTask() {
   window.location.href = "add-task.html";
+}
+
+// ===================== FETCH CLASSES FOR TASK CREATION =====================
+function loadClassesForTaskCreation() {
+  fetch("http://127.0.0.1:5000/classes", {
+    credentials: "include"
+  })
+  .then(res => res.json())
+  .then(data => {
+    const taskClassSelect = document.getElementById("taskClass");
+    if (!taskClassSelect) return;
+
+    // Clear current options
+    taskClassSelect.innerHTML = '';
+
+    // Add a default "Select a Class" option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.innerText = "Select a Class";
+    taskClassSelect.appendChild(defaultOption);
+
+    // Populate dropdown with class names and their respective ids
+    data.forEach(cls => {
+      const option = document.createElement("option");
+      option.value = cls.id; // Use class id here
+      option.innerText = cls.name;
+      taskClassSelect.appendChild(option);
+    });
+  })
+  .catch(err => console.log(err));
 }

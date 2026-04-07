@@ -256,3 +256,35 @@ def get_tasks():
         })
 
     return jsonify(result)
+
+@main.route('/tasks', methods=['POST'])
+@login_required
+def create_task():
+    data = request.get_json()
+
+    if not data or not data.get('title') or not data.get('class'):
+        return jsonify({'message': 'Missing required fields'}), 400
+
+    #find class by name or id
+    task_class = Class.query.filter_by(name=data['class'], user_id=current_user.id).first()
+
+    if not task_class:
+        return jsonify({'message': 'Class not found'}), 404
+
+    #convert due date if provided
+    due_date = None
+    if data.get('due_date'):
+        due_date = parse_date(data['due_date'])
+
+    #create task
+    task = Assignment(
+        title=data.get('title'),
+        due_date=due_date,
+        priority=data.get('priority', 'Medium'),
+        class_id=task_class.id
+    )
+
+    db.session.add(task)
+    db.session.commit()
+
+    return jsonify({'message': 'Task created'}), 201
