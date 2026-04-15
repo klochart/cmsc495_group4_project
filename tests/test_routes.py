@@ -151,7 +151,7 @@ class TestBrowserCompatibility(unittest.TestCase):
         with cls.app.app_context():
             db.create_all()
 
-        cls.server_thread = threading.Thread(target=cls.app.run, kwargs={'debug': True, 'port': 5000, 'use_reloader': False})
+        cls.server_thread = threading.Thread(target=cls.app.run, kwargs={'debug': False, 'port': 5000, 'use_reloader': False})
         cls.server_thread.daemon = True
         cls.server_thread.start()
 
@@ -160,9 +160,17 @@ class TestBrowserCompatibility(unittest.TestCase):
             for browser_type in [p.chromium, p.firefox, p.webkit]:
                 browser = browser_type.launch(headless = True)
                 page = browser.new_page()
-                page.goto('http://localhost:5000')
-                self.assertIn('Task Manager', page.title())
-                print(f"Success: {browser_type.name} rendered the page correctly.")
+                page.goto('http://127.0.0.1:5000', wait_until="networkidle")
+
+                try:
+                    page.wait_for_function("document.title !== ''", timeout=3000)
+                except:
+                    pass 
+
+                current_title = page.title()
+
+                print(f"\n[Browser: {browser_type.name}] Found Title: '{current_title}'")
+                self.assertIn('Task Manager',current_title)
                 browser.close()
 
     @classmethod
