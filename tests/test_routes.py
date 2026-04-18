@@ -1,7 +1,9 @@
+import threading
 import unittest
 from app import create_app, db
 from app.models import User, Class, Assignment
 from datetime import datetime
+from playwright.sync_api import sync_playwright # compatability testing
 
 class TestRoutes(unittest.TestCase):
 
@@ -136,6 +138,44 @@ class TestRoutes(unittest.TestCase):
 
         self.assertEqual(len(data), 2)
         self.assertEqual(data[0]['class'], 'Science')
+
+#COMPATIBILITY TEST
+class TestBrowserCompatibility(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.app = create_app()
+        cls.app.config['TESTING'] = True
+        cls.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+
+        with cls.app.app_context():
+            db.create_all()
+
+        cls.server_thread = threading.Thread(target=cls.app.run, kwargs={'debug': False, 'port': 5000, 'use_reloader': False})
+        cls.server_thread.daemon = True
+        cls.server_thread.start()
+
+    def test_browser_compatibility(self):
+        with sync_playwright() as p:
+            for browser_type in [p.chromium, p.firefox, p.webkit]:
+                browser = browser_type.launch(headless = True)
+                page = browser.new_page()
+
+                response = page.goto('http://127.0.0.1:5000', wait_until="domcontentloaded")
+                status = response.status
+                content_length = len(page.content())
+
+                print(f"\n[Browser: {browser_type.name}] Status: {status}, Content Length: {content_length}")
+                self.assertEqual(status, 200, f"{browser_type.name} failed to load the page.")
+                self.assertGreater(content_length, 50, f"{browser_type.name} loaded a blank page.")
+
+                browser.close()
+
+    @classmethod
+    def tearDownClass(cls):
+        import os
+        if os.path.exists('test_browser.db'):
+            os.remove('test_browser.db')
 
 
 #RUN TESTS
