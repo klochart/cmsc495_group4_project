@@ -15,8 +15,17 @@ def create_app():
     CORS(app, supports_credentials=True)
 
     #basic config
-    app.config['SECRET_KEY'] = 'your_secret_key'  #used for sessions/security
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///planner.db'  #database file
+    app.config['SECRET_KEY'] = 'your_secret_key'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///planner.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+    app.config['SESSION_COOKIE_SECURE'] = False
+
+    CORS(app,
+         supports_credentials=True,
+         origins=["http://localhost:5500"])
+
 
     #connect extensions to app
     db.init_app(app)
