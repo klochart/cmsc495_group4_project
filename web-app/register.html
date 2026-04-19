@@ -12,7 +12,13 @@
     <h1>Create Account</h1>
 
     <input type="text" id="registerUsername" placeholder="Username">
+
     <input type="password" id="registerPassword" placeholder="Password">
+
+    <!-- Show password toggle -->
+    <label>
+      <input type="checkbox" onclick="toggleRegisterPassword()"> Show Password
+    </label>
 
     <!-- type="button" keeps the page from auto-submitting before JS finishes -->
     <button type="button" onclick="registerUser(event)">Create Account</button>

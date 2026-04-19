@@ -655,3 +655,14 @@ document.addEventListener("DOMContentLoaded", () => {
     loadReminders();
   }
 });
+
+// ===================Password show button=======================
+function toggleRegisterPassword() {
+  const passwordField = document.getElementById("registerPassword");
+
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+  } else {
+    passwordField.type = "password";
+  }
+}
