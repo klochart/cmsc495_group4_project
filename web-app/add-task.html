@@ -2,55 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Task</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="login-container">
+  <div class="login-container">
+    <h1>Add Task</h1>
 
-  <h1>Add Task</h1>
+    <input type="text" placeholder="Title" id="taskTitle">
 
-  <!-- Task Title -->
-  <input type="text" placeholder="Title" id="taskTitle">
+    <select id="taskClass">
+      <option value="">Select Class</option>
+    </select>
 
-  <!-- Class dropdown, new addition to the code. allows for us to select task for the classes that are listed -->
-  <select id="taskClass">
-    <option value="">Select a Class</option>
-  </select>
+    <input type="date" id="taskDate">
 
-  <!-- Due Date -->
-  <input type="date" id="taskDate">
+    <select id="taskPriority">
+      <option value="">Priority</option>
+      <option value="High">High</option>
+      <option value="Medium">Medium</option>
+      <option value="Low">Low</option>
+    </select>
 
-  <!-- Priority -->
-  <select id="taskPriority">
-    <option value="">Priority</option>
-    <option value="High">High</option>
-    <option value="Medium">Medium</option>
-    <option value="Low">Low</option>
-  </select>
+    <button type="button" onclick="saveTask()">Save Task</button>
 
-  <!-- Save Button -->
-  <button onclick="saveTask()">Save Task</button>
+    <p class="register-link">
+      <span onclick="goToTasks()">Back to Tasks</span>
+    </p>
 
-  <!-- Back Link -->
-  <p class="register-link">
-    <span onclick="goToTasks()" style="cursor:pointer; color:blue;">
-      ← Back to Tasks
-    </span>
-  </p>
+    <p id="taskMessage"></p>
+  </div>
 
-  <!-- Message -->
-  <p id="taskMessage"></p>
-
-</div>
-
-<script src="app.js"></script>
-
-<script>
-  // Load classes into dropdown when page opens
-  loadClassesForTaskCreation();
-</script>
-
+  <script src="app.js"></script>
 </body>
 </html>

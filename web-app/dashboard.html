@@ -15,55 +15,42 @@
 
       <ul class="nav-links">
         <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="classes-page.html">Classes</a></li><!--updated-->
-        <li><a href="task-list.html">Tasks</a></li><!--updated-->
-        <li><a href="#">Calendar</a></li>
+        <li><a href="classes-page.html">Classes</a></li>
+        <li><a href="task-list.html">Tasks</a></li>
+        <li><a href="reminders.html">Reminders</a></li>
       </ul>
 
-      <button class="logout-btn" onclick="logout()">Log Out</button>
+      <button class="logout-btn" type="button" onclick="logout()">Log Out</button>
     </div>
 
     <div class="main-content">
-      <div class="topbar">
-        <h1>Dashboard</h1>
-        <p>Welcome back</p>
-      </div>
+      <h1 id="welcome-message">Welcome back</h1>
 
       <div class="summary-cards">
-        <div class="card">
-          <h3>Total Classes</h3>
-          <p>4</p>
+        <div class="dashboard-box">
+          <h2>Total Classes</h2>
+          <p id="total-classes">0</p>
         </div>
 
-        <div class="card">
-          <h3>Total Tasks</h3>
-          <p>9</p>
+        <div class="dashboard-box">
+          <h2>Total Tasks</h2>
+          <p id="total-tasks">0</p>
         </div>
 
-        <div class="card">
-          <h3>Due This Week</h3>
-          <p>3</p>
+        <div class="dashboard-box">
+          <h2>Due This Week</h2>
+          <p id="due-this-week">0</p>
         </div>
       </div>
 
-      <div class="dashboard-sections">
-        <div class="dashboard-box">
-          <h2>Upcoming Tasks</h2>
-          <ul>
-            <li>Database Homework - April 5</li>
-            <li>Security Quiz - April 7</li>
-            <li>Project Draft - April 8</li>
-          </ul>
-        </div>
+      <div class="dashboard-box">
+        <h2>Upcoming Tasks</h2>
+        <ul id="upcoming-tasks"></ul>
+      </div>
 
-        <div class="dashboard-box">
-          <h2>Priority Tasks</h2>
-          <ul>
-            <li>Finish login page</li>
-            <li>Start dashboard layout</li>
-            <li>Review backend routes</li>
-          </ul>
-        </div>
+      <div class="dashboard-box">
+        <h2>Priority Tasks</h2>
+        <ul id="priority-tasks"></ul>
       </div>
     </div>
 

@@ -2,54 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reminders</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="dashboard-page">
+  <div class="dashboard-page">
 
-  <div class="sidebar">
-    <h2 class="logo">Study Planner</h2>
+    <div class="sidebar">
+      <h2 class="logo">Study Planner</h2>
 
-    <ul class="nav-links">
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="classes-page.html">Classes</a></li><!--updated-->
-      <li><a href="task-list.html">Tasks</a></li><!--updated-->
-      <li><a href="reminders.html" class="active">Reminders</a></li>
-    </ul>
-
-    <button class="logout-btn" onclick="logout()">Log Out</button>
-  </div>
-
-  <div class="main-content">
-    <h1>Reminders</h1>
-
-    <div class="dashboard-box">
-      <ul id="reminderList">
-        <li onclick="showReminder('Finish Homework', 'Due April 5', 'High Priority')">
-          Finish Homework
-        </li>
-
-        <li onclick="showReminder('Security Quiz', 'April 7', 'Medium Priority')">
-          Security Quiz
-        </li>
-
-        <li onclick="showReminder('Project Draft', 'April 8', 'High Priority')">
-          Project Draft
-        </li>
+      <ul class="nav-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="classes-page.html">Classes</a></li>
+        <li><a href="task-list.html">Tasks</a></li>
+        <li><a href="reminders.html" class="active">Reminders</a></li>
       </ul>
+
+      <button class="logout-btn" onclick="logout()">Log Out</button>
     </div>
 
-    <div class="dashboard-box" id="reminderDetails">
-      <h2>Reminder Details</h2>
-      <p>Select a reminder</p>
+    <div class="main-content">
+      <h1>Reminders</h1>
+
+      <div class="dashboard-box">
+        <h2>Add Reminder</h2>
+
+        <select id="reminderTask">
+          <option value="">Select Task</option>
+        </select>
+
+        <input type="datetime-local" id="reminderDateTime">
+
+        <button type="button" onclick="addReminder()">Add Reminder</button>
+
+        <p id="reminderMessage"></p>
+      </div>
+
+      <div class="dashboard-box">
+        <h2>Your Reminders</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Date & Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reminderTableBody">
+              <!-- reminders get inserted here by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
   </div>
 
-</div>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

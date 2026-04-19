@@ -9,17 +9,17 @@
 <body>
 
   <div class="login-container">
-    <h1>Student Study Planner</h1>
-    <h2>Register</h2>
+    <h1>Create Account</h1>
 
-    <input type="text" placeholder="Username" id="registerUsername">
-    <input type="email" placeholder="Email" id="registerEmail">
-    <input type="password" placeholder="Password" id="registerPassword">
+    <input type="text" id="registerUsername" placeholder="Username">
+    <input type="password" id="registerPassword" placeholder="Password">
 
-    <button onclick="registerUser()">Create Account</button>
+    <!-- type="button" keeps the page from auto-submitting before JS finishes -->
+    <button type="button" onclick="registerUser(event)">Create Account</button>
 
     <p class="register-link">
-      Already have an account? <span onclick="goToLogin()">Back to Sign In</span>
+      Already have an account?
+      <span onclick="goToLogin()">Back to Login</span>
     </p>
 
     <p id="registerMessage"></p>

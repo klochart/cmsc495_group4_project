@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task List</title>
+  <title>Tasks</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,8 +15,8 @@
 
       <ul class="nav-links">
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="classes-page.html">Classes</a></li><!--updated-->
-        <li><a href="task-list.html" class="active">Tasks</a></li><!--updated-->
+        <li><a href="classes-page.html">Classes</a></li>
+        <li><a href="task-list.html" class="active">Tasks</a></li>
         <li><a href="reminders.html">Reminders</a></li>
       </ul>
 
@@ -24,66 +24,32 @@
     </div>
 
     <div class="main-content">
-      <div class="topbar">
-        <h1>Task List</h1>
-        <p>View and manage all tasks</p>
-      </div>
+      <h1>Tasks</h1>
 
-      <div class="task-top-actions">
-        <button onclick="goToAddTask()">+ Add Task</button>
+      <div class="dashboard-box">
+        <button type="button" onclick="goToAddTask()">Add New Task</button>
       </div>
 
       <div class="dashboard-box">
-        <table class="task-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Class</th>
-              <th>Type</th>
-              <th>Due Date</th>
-              <th>Priority</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+        <h2>Your Tasks</h2>
 
-          <tbody id="taskTableBody">
-            <tr>
-              <td>Database Homework</td>
-              <td>Database Systems</td>
-              <td>Assignment</td>
-              <td>April 5</td>
-              <td>High</td>
-              <td>
-                <button class="small-btn" onclick="editTask('Database Homework')">Edit</button>
-                <button class="small-btn delete-btn" onclick="deleteTask(this)">Delete</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Security Quiz</td>
-              <td>Cybersecurity</td>
-              <td>Quiz</td>
-              <td>April 7</td>
-              <td>Medium</td>
-              <td>
-                <button class="small-btn" onclick="editTask('Security Quiz')">Edit</button>
-                <button class="small-btn delete-btn" onclick="deleteTask(this)">Delete</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Project Draft</td>
-              <td>Software Engineering</td>
-              <td>Exam Prep</td>
-              <td>April 8</td>
-              <td>High</td>
-              <td>
-                <button class="small-btn" onclick="editTask('Project Draft')">Edit</button>
-                <button class="small-btn delete-btn" onclick="deleteTask(this)">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- wrapping the table helps keep the layout clean on smaller screens -->
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Class</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="taskTableBody">
+              <!-- tasks get inserted here by app.js -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
