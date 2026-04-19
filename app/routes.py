@@ -257,6 +257,69 @@ def get_tasks():
 
     return jsonify(result)
 
+@main.route('/dashboard-data', methods=['GET'])
+@login_required
+def dashboard_data():
+    #get all classes that belong to the current user
+    classes = Class.query.filter_by(user_id=current_user.id).all()
+
+    #get all assignments (tasks) that belong to the current user
+    assignments = Assignment.query.join(Class).filter(
+        Class.user_id == current_user.id
+    ).all()
+
+    #count totals
+    total_classes = len(classes)
+    total_tasks = len(assignments)
+
+    #get today's date
+    today = datetime.today().date()
+
+    #initialize counters/lists
+    due_this_week = 0
+    upcoming_tasks = []
+    priority_tasks = []
+
+    #loop through assignments to calculate stats
+    for a in assignments:
+
+        #check if assignment has a due date
+        if a.due_date:
+            # Calculate how many days until due date
+            days_diff = (a.due_date.date() - today).days
+
+            #count tasks due within the next 7 days
+            if 0 <= days_diff <= 7:
+                due_this_week += 1
+
+            #add to upcoming tasks if not past due
+            if days_diff >= 0:
+                upcoming_tasks.append({
+                    'title': a.title,
+                    'due_date': a.due_date.strftime('%Y-%m-%d')
+                })
+
+        #add to priority list if marked high/urgent
+        if a.priority in ['High', 'Urgent']:
+            priority_tasks.append({
+                'title': a.title,
+                'priority': a.priority
+            })
+
+    #limit results so UI doesn't get too long
+    upcoming_tasks = upcoming_tasks[:5]
+    priority_tasks = priority_tasks[:5]
+
+    #return all dashboard data as JSON
+    return jsonify({
+        'user': current_user.username,
+        'total_classes': total_classes,
+        'total_tasks': total_tasks,
+        'due_this_week': due_this_week,
+        'upcoming_tasks': upcoming_tasks,
+        'priority_tasks': priority_tasks
+    })
+
 @main.route('/tasks', methods=['POST'])
 @login_required
 def create_task():
@@ -288,3 +351,47 @@ def create_task():
     db.session.commit()
 
     return jsonify({'message': 'Task created'}), 201
+
+@main.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    data = request.get_json()
+    username = data.get('email')  #frontend sends "email", we treat it as username
+
+    if not username:
+        return jsonify({'message': 'Username required'}), 400
+
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        #generate secure token
+        token = secrets.token_urlsafe(32)
+
+        #save token
+        user.reset_token = token
+        db.session.commit()
+
+        print(f"Reset link: http://localhost:3000/reset-password/{token}")
+
+    return jsonify({'message': 'If that account exists, a reset link was sent'})
+
+@main.route('/reset-password/<token>', methods=['POST'])
+def reset_password(token):
+    data = request.get_json()
+    new_password = data.get('password')
+
+    if not new_password:
+        return jsonify({'message': 'Password required'}), 400
+
+    user = User.query.filter_by(reset_token=token).first()
+
+    if not user:
+        return jsonify({'message': 'Invalid or expired token'}), 400
+
+    #hash new password
+    hashed_pw = bcrypt.generate_password_hash(new_password).decode('utf-8')
+
+    user.password = hashed_pw
+    user.reset_token = None
+    db.session.commit()
+
+    return jsonify({'message': 'Password reset successful'})

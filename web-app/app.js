@@ -37,7 +37,32 @@ function login() {
       if (error) error.innerText = "Server error";
     });
 }
+// ===================== FORGOT PASSWORD =====================
+function forgotPassword() {
+  const email = prompt("Enter your email to reset your password:");
 
+  if (!email) {
+    alert("Email is required");
+    return;
+  }
+
+  fetch("http://127.0.0.1:5000/forgot-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email: email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Forgot Password:", data);
+      alert(data.message || "If this email exists, a reset link was sent.");
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error sending reset request");
+    });
+}
 
 // ===================== REGISTER =====================
 function registerUser(event) {
@@ -370,6 +395,11 @@ async function loadDashboardData() {
       method: "GET",
       credentials: "include"
     });
+
+     if (response.status === 401) {
+       window.location.href = "index.html";
+       return;
+     }
 
     if (!response.ok) {
       throw new Error("Failed to load dashboard data");
