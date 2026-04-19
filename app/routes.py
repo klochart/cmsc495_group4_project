@@ -5,6 +5,7 @@ from datetime import datetime
 from . import db, bcrypt
 from .models import User, Class, Assignment
 from .utils import parse_date
+import secrets
 
 #blueprint to group all routes
 main = Blueprint('main', __name__)
@@ -22,9 +23,9 @@ def register():
     #get data from request
     data = request.get_json()
 
-    #make sure user sent username + password
-    if not data or not data.get('username') or not data.get('password'):
-        return jsonify({'message': 'Missing fields'}), 400
+    #validate input
+    if not data or not data.get('username') or not data.get('email') or not data.get('password'):
+        return jsonify({'message': 'All fields (username, email, password) are required'}), 400
 
     #check if user already exists
     if User.query.filter_by(username=data['username']).first():
@@ -34,7 +35,12 @@ def register():
     hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
 
     #create user and save
-    user = User(username=data['username'], password=hashed_pw)
+    user = User(
+        username=data['username'],
+        email=data['email'],
+        password=hashed_pw
+    )
+
     db.session.add(user)
     db.session.commit()
 
@@ -45,8 +51,8 @@ def login():
     #get login info
     data = request.get_json()
 
-    if not data:
-        return jsonify({'message': 'Missing data'}), 400
+    if not data or not data.get('username') or not data.get('password'):
+        return jsonify({'message': 'Missing username or password'}), 400
 
     #find user in database
     user = User.query.filter_by(username=data.get('username')).first()

@@ -1,5 +1,23 @@
+const API_BASE = "http://127.0.0.1:5000";
+
+async function handleResponse(res) {
+  if (!res.ok) {
+    let errorMessage = "Request failed";
+
+    try {
+      const errorData = await res.json();
+      errorMessage = errorData.message || errorMessage;
+    } catch {
+      // ignore JSON parse errors
+    }
+
+    throw new Error(errorMessage);
+  }
+
+  return res.json();
+}
 // ===================== LOGIN =====================
-function login() {
+async function login() {
   const username = document.getElementById("username")?.value;
   const password = document.getElementById("password")?.value;
   const error = document.getElementById("error");
@@ -11,32 +29,25 @@ function login() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "include",
-    body: JSON.stringify({
-      username: username,
-      password: password
-    })
-  })
-    .then(res => res.json())
-    .then(data => {
-      console.log("Login:", data);
-
-      if (data.message === "Logged in") {
-        window.location.href = "dashboard.html";
-      } else {
-        if (error) error.innerText = data.message || "Login failed";
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      if (error) error.innerText = "Server error";
+ try {
+    const res = await fetch(`${API_BASE}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ username, password })
     });
+
+    const data = await handleResponse(res);
+
+    if (data.message === "Logged in") {
+      window.location.href = "dashboard.html";
+    }
+  } catch (err) {
+    console.error(err);
+    if (error) error.innerText = err.message;
+  }
 }
+
 // ===================== FORGOT PASSWORD =====================
 function forgotPassword() {
   const email = prompt("Enter your email to reset your password:");
@@ -70,6 +81,7 @@ function registerUser(event) {
 
   const username = document.getElementById("registerUsername")?.value;
   const password = document.getElementById("registerPassword")?.value;
+  const email = document.getElementById("registerEmail")?.value;
   const message = document.getElementById("registerMessage");
 
   if (message) message.innerText = "";
@@ -88,9 +100,10 @@ function registerUser(event) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      username: username,
-      password: password
-    })
+  username: username,
+  email: email,
+  password: password
+})
   })
     .then(res => res.json())
     .then(data => {
