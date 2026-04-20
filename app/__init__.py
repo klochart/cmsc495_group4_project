@@ -23,11 +23,11 @@ def create_app():
 
     #update
     CORS(app,
-         supports_credentials=True,
-         origins=[
-             "http://localhost:8000",  #python http.server
-             "http://127.0.0.1:8000"
-         ])
+         supports_credentials=True, 
+         origins=[*])
+
+    #"http://localhost:8000",  #python http.server
+   # "http://127.0.0.1:8000"
 
     db.init_app(app)
     login_manager.init_app(app)
