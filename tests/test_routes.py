@@ -161,7 +161,7 @@ class TestBrowserCompatibility(unittest.TestCase):
                 browser = browser_type.launch(headless = True)
                 page = browser.new_page()
 
-                response = page.goto('http://127.0.0.1:5000', wait_until="domcontentloaded")
+                response = page.goto('https://cmsc495-group4-project.onrender.com', wait_until="domcontentloaded")
                 status = response.status
                 content_length = len(page.content())
 
