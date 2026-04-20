@@ -24,7 +24,7 @@ def create_app():
     #update
     CORS(app,
          supports_credentials=True, 
-         origins=[*])
+         origins=["*"])
 
     #"http://localhost:8000",  #python http.server
    # "http://127.0.0.1:8000"
