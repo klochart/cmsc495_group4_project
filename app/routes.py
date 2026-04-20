@@ -383,7 +383,7 @@ def forgot_password():
         user.reset_token = token
         db.session.commit()
 
-        print(f"Reset link: http://localhost:3000/reset-password/{token}")
+        print(f"Reset link: https://cmsc495-group4-project.onrender.com/reset-password/{token}")
 
     return jsonify({'message': 'If that account exists, a reset link was sent'})
 
