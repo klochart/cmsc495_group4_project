@@ -57,7 +57,7 @@ function forgotPassword() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/forgot-password", {
+  fetch("https://cmsc495-group4-project.onrender.com/forgot-password", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -94,7 +94,7 @@ function registerUser(event) {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/register", {
+  fetch("https://cmsc495-group4-project.onrender.com/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -137,7 +137,7 @@ function registerUser(event) {
 
 // ===================== LOGOUT =====================
 function logout() {
-  fetch("http://127.0.0.1:5000/logout", {
+  fetch("https://cmsc495-group4-project.onrender.com/logout", {
     method: "GET",
     credentials: "include"
   })
@@ -152,7 +152,7 @@ function logout() {
 
 // ===================== LOAD TASKS =====================
 function loadTasks() {
-  fetch("http://127.0.0.1:5000/tasks", {
+  fetch("https://cmsc495-group4-project.onrender.com/tasks", {
     credentials: "include"
   })
     .then(res => {
@@ -213,7 +213,7 @@ function addClass() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch("https://cmsc495-group4-project.onrender.com/classes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -257,7 +257,7 @@ function addClass() {
 
 // ===================== DELETE TASK =====================
 function deleteTask(id) {
-  fetch(`http://127.0.0.1:5000/assignments/${id}`, {
+  fetch(`https://cmsc495-group4-project.onrender.com/assignments/${id}`, {
     method: "DELETE",
     credentials: "include"
   })
@@ -282,7 +282,7 @@ function deleteTask(id) {
 
 // ===================== LOAD CLASS OPTIONS FOR ADD TASK =====================
 function loadClassOptions() {
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch("https://cmsc495-group4-project.onrender.com/classes", {
     credentials: "include"
   })
     .then(res => {
@@ -335,7 +335,7 @@ function saveTask() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/assignments", {
+  fetch("https://cmsc495-group4-project.onrender.com/assignments", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -404,7 +404,7 @@ function goToLogin() {
 // ===================== LOAD DASHBOARD DATA =====================
 async function loadDashboardData() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/dashboard-data", {
+    const response = await fetch("https://cmsc495-group4-project.onrender.com/dashboard-data", {
       method: "GET",
       credentials: "include"
     });
@@ -488,7 +488,7 @@ function renderDashboardData(data) {
 
 // ===================== LOAD TASK OPTIONS FOR REMINDERS =====================
 function loadReminderTaskOptions() {
-  fetch("http://127.0.0.1:5000/tasks", {
+  fetch("https://cmsc495-group4-project.onrender.com/tasks", {
     credentials: "include"
   })
     .then(res => {
@@ -611,7 +611,7 @@ function removeRemindersForTask(taskId) {
 
 // ===================== LOAD CLASSES =====================
 function loadClasses() {
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch("https://cmsc495-group4-project.onrender.com/classes", {
     credentials: "include"
   })
     .then(res => {
