@@ -11,7 +11,7 @@ function login() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/login", {
+  fetch("https://cmsc495-group4-project.onrender.com/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -52,7 +52,7 @@ function registerUser() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/register", {
+  fetch("https://cmsc495-group4-project.onrender.com/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -98,7 +98,7 @@ function forgotPassword() {
 
 // ===================== LOGOUT =====================
 function logout() {
-  fetch("http://127.0.0.1:5000/logout", {
+  fetch("https://cmsc495-group4-project.onrender.com/logout", {
     method: "GET",
     credentials: "include"
   })
@@ -110,7 +110,7 @@ function logout() {
 
 // ===================== LOAD TASKS =====================
 function loadTasks() {
-  fetch("http://127.0.0.1:5000/tasks", {
+  fetch("https://cmsc495-group4-project.onrender.com/tasks", {
     credentials: "include"
   })
   .then(res => res.json())
@@ -133,7 +133,7 @@ function loadTasks() {
 
 // ===================== LOAD CLASSES =====================
 function loadClasses() {
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch("https://cmsc495-group4-project.onrender.com/classes", {
     credentials: "include"
   })
   .then(res => res.json())
@@ -161,7 +161,7 @@ function addClass() {
 
   if (!newClass) return;
 
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch("https://cmsc495-group4-project.onrender.com/classes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -195,7 +195,7 @@ function saveTask() {
   }
 
   // Update field names for consistency with the backend
-  fetch("http://127.0.0.1:5000/tasks", {
+  fetch("https://cmsc495-group4-project.onrender.com/tasks", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -249,7 +249,7 @@ function goToAddTask() {
 
 // ===================== FETCH CLASSES FOR TASK CREATION =====================
 function loadClassesForTaskCreation() {
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch("https://cmsc495-group4-project.onrender.com/classes", {
     credentials: "include"
   })
   .then(res => res.json())
