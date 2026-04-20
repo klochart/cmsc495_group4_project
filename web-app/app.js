@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "https://cmsc495-group4-project.onrender.com";
 
 async function handleResponse(res) {
   if (!res.ok) {
