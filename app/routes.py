@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, send_from_directory, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 
@@ -6,6 +6,7 @@ from . import db, bcrypt
 from .models import User, Class, Assignment
 from .utils import parse_date
 import secrets
+import os 
 
 #blueprint to group all routes
 main = Blueprint('main', __name__)
@@ -14,7 +15,13 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     #just a test route to see if server is working
-    return jsonify({'message': 'Study Planner API running'})
+    #return jsonify({'message': 'Study Planner API running'})
+    return send_from_directory(os.path.join(current_app.root_path, '../web-app'), 'index.html')
+
+#JS HANDLING
+@main.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(os.path.join(current_app.root_path, '../web-app'), path)
 
 #AUTH
 
