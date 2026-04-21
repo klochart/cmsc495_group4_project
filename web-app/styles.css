@@ -422,3 +422,20 @@ td button {
     width: auto;
   }
 }
+/* ===================== CLASS LIST (FOR DELETE BUTTON) ===================== */
+#classList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#classList li span {
+  color: #355555;
+}
+
+#classList li button {
+  width: auto;
+  padding: 6px 12px;
+  font-size: 13px;
+}

@@ -33,6 +33,7 @@ pip install flask flask_sqlalchemy flask_login flack_bcrypt
 python run.py
 
 should run on server http://127.0.0.1:5000/
+official render link https://cmsc495-group4-project.onrender.com
 
 API endpoints
 POST /register
