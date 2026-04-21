@@ -15,3 +15,4 @@ typing_extensions==4.15.0
 Werkzeug==3.1.7
 flask-cors
 gunicorn
+Flask-Migrate==4.0.7
