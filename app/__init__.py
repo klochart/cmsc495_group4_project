@@ -43,6 +43,9 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return db.session.get(User, int(user_id))
+    
+    with app.app_context():
+        db.create_all()
 
     from .routes import main
     app.register_blueprint(main)
