@@ -209,6 +209,24 @@ def get_assignments(class_id):
 
     return jsonify(result)
 
+@main.route('/assignments/all', methods=['GET'])
+@login_required
+def get_all_assignments():
+    assignments = Assignment.query.join(Class).filter(Class.user_id == current_user.id).all()
+
+    result = []
+    for a in assignments:
+        result.append({
+            'id': a.id,
+            'title': a.title,
+            'due_date': a.due_date.strftime('%Y-%m-%d') if a.due_date else None,
+            'priority': a.priority,
+            'class_id': a.class_id,
+            'class_name': a.class_.name
+        })
+
+    return jsonify(result)
+
 @main.route('/assignments/<int:id>', methods=['PUT'])
 @login_required
 def update_assignment(id):
