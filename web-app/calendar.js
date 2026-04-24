@@ -1,3 +1,5 @@
+// calendar.js - Handles loading and showing calendar view with assignments
+
 const API_URL = "http://127.0.0.1:5000";
 
 function loadCalendar() {
