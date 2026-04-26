@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classes</title>
+  <title>Calendar</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,9 +15,9 @@
 
       <ul class="nav-links">
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="classes-page.html" class="active">Classes</a></li>
+        <li><a href="classes-page.html">Classes</a></li>
         <li><a href="task-list.html">Tasks</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="calendar.html" class="active">Calendar</a></li>
         <li><a href="reminders.html">Reminders</a></li>
       </ul>
 
@@ -25,25 +25,21 @@
     </div>
 
     <div class="main-content">
-      <h1>Classes</h1>
-
-      <div class="dashboard-box">
-        <h2>Add Class</h2>
-
-        <input type="text" placeholder="Class Name" id="className">
-        <button type="button" onclick="addClass()">Add Class</button>
-
-        <p id="classMessage"></p>
+      <div class="calendar-header">
+        <h2>Calendar</h2>
       </div>
 
       <div class="dashboard-box">
-        <h2>Your Classes</h2>
-        <ul id="classList"></ul>
+        <div class="calendar-header">
+          <div id="calendarMonth" class="calendar-month"></div>
+        </div>
+
+        <div id="calendarGrid" class="calendar-grid"></div>
       </div>
     </div>
 
   </div>
 
-  <script src="app.js"></script>
+  <script src="calendar.js"></script>
 </body>
 </html>

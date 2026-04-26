@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, send_from_directory, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 
@@ -6,6 +6,7 @@ from . import db, bcrypt
 from .models import User, Class, Assignment
 from .utils import parse_date
 import secrets
+import os 
 
 #blueprint to group all routes
 main = Blueprint('main', __name__)
@@ -14,7 +15,13 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     #just a test route to see if server is working
-    return jsonify({'message': 'Study Planner API running'})
+    #return jsonify({'message': 'Study Planner API running'})
+    return send_from_directory(os.path.join(current_app.root_path, '../web-app'), 'index.html')
+
+#JS HANDLING
+@main.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(os.path.join(current_app.root_path, '../web-app'), path)
 
 #AUTH
 
@@ -202,6 +209,24 @@ def get_assignments(class_id):
 
     return jsonify(result)
 
+@main.route('/assignments/all', methods=['GET'])
+@login_required
+def get_all_assignments():
+    assignments = Assignment.query.join(Class).filter(Class.user_id == current_user.id).all()
+
+    result = []
+    for a in assignments:
+        result.append({
+            'id': a.id,
+            'title': a.title,
+            'due_date': a.due_date.strftime('%Y-%m-%d') if a.due_date else None,
+            'priority': a.priority,
+            'class_id': a.class_id,
+            'class_name': a.class_.name
+        })
+
+    return jsonify(result)
+
 @main.route('/assignments/<int:id>', methods=['PUT'])
 @login_required
 def update_assignment(id):
@@ -376,7 +401,7 @@ def forgot_password():
         user.reset_token = token
         db.session.commit()
 
-        print(f"Reset link: http://localhost:3000/reset-password/{token}")
+        print(f"Reset link: https://cmsc495-group4-project.onrender.com/reset-password/{token}")
 
     return jsonify({'message': 'If that account exists, a reset link was sent'})
 
