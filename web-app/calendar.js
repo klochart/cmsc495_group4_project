@@ -1,6 +1,7 @@
 // calendar.js - Handles loading and showing calendar view with assignments
 
-const API_URL = "http://127.0.0.1:5000";
+// const API_URL = "http://127.0.0.1:5000";
+const API_URL = "https://cmsc495-group4-project.onrender.com";
 
 function loadCalendar() {
   const calendarGrid = document.getElementById("calendarGrid");
