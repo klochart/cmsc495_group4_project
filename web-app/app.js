@@ -687,3 +687,5 @@ function togglePassword() {
   } else {
     passwordField.type = "password";
   }
+}
+

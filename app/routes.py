@@ -23,7 +23,7 @@ def register():
     #get data from request
     data = request.get_json()
 
-    #validate input
+    #make sure user sent username + password... update require email
     if not data or not data.get('username') or not data.get('email') or not data.get('password'):
         return jsonify({'message': 'All fields (username, email, password) are required'}), 400
 

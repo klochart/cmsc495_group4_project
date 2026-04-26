@@ -12,9 +12,9 @@ bcrypt = Bcrypt()
 def create_app():
     app = Flask(__name__)
 
-    #config
-    app.config['SECRET_KEY'] = 'your_secret_key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///planner.db'
+    # basic config
+    app.config['SECRET_KEY'] = 'your_secret_key' #used for sessions/security
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///planner.db' #database file
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     #update
