@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(100), nullable=False)  #hashed password
     email = db.Column(db.String(120), unique=True, nullable=False) #email
 
+    reset_token = db.Column(db.String(100), nullable=True)
     #one user can have many classes
     #if user is deleted, their classes also get deleted
     classes = db.relationship(
