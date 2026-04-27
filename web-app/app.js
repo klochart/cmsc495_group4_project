@@ -1,4 +1,8 @@
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE =
+  window.location.hostname === "127.0.0.1" ||
+  window.location.hostname === "localhost"
+    ? "http://127.0.0.1:5000"
+    : "https://cmsc495-group4-project.onrender.com";
 
 async function handleResponse(res) {
   if (!res.ok) {
@@ -16,6 +20,7 @@ async function handleResponse(res) {
 
   return res.json();
 }
+
 // ===================== LOGIN =====================
 async function login() {
   const username = document.getElementById("username")?.value;
@@ -29,7 +34,7 @@ async function login() {
     return;
   }
 
- try {
+  try {
     const res = await fetch(`${API_BASE}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -57,7 +62,7 @@ function forgotPassword() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/forgot-password", {
+  fetch(`${API_BASE}/forgot-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -94,16 +99,16 @@ function registerUser(event) {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/register", {
+  fetch(`${API_BASE}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-  username: username,
-  email: email,
-  password: password
-})
+      username: username,
+      email: email,
+      password: password
+    })
   })
     .then(res => res.json())
     .then(data => {
@@ -134,10 +139,9 @@ function registerUser(event) {
     });
 }
 
-
 // ===================== LOGOUT =====================
 function logout() {
-  fetch("http://127.0.0.1:5000/logout", {
+  fetch(`${API_BASE}/logout`, {
     method: "GET",
     credentials: "include"
   })
@@ -149,10 +153,9 @@ function logout() {
     });
 }
 
-
 // ===================== LOAD TASKS =====================
 function loadTasks() {
-  fetch("http://127.0.0.1:5000/tasks", {
+  fetch(`${API_BASE}/tasks`, {
     credentials: "include"
   })
     .then(res => {
@@ -191,7 +194,6 @@ function loadTasks() {
     .catch(err => console.error(err));
 }
 
-
 // ===================== ADD CLASS =====================
 function addClass() {
   const classNameInput = document.getElementById("className");
@@ -213,7 +215,7 @@ function addClass() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch(`${API_BASE}/classes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -254,10 +256,9 @@ function addClass() {
     });
 }
 
-
 // ===================== DELETE TASK =====================
 function deleteTask(id) {
-  fetch(`http://127.0.0.1:5000/assignments/${id}`, {
+  fetch(`${API_BASE}/assignments/${id}`, {
     method: "DELETE",
     credentials: "include"
   })
@@ -279,10 +280,9 @@ function deleteTask(id) {
     .catch(err => console.error(err));
 }
 
-
 // ===================== LOAD CLASS OPTIONS FOR ADD TASK =====================
 function loadClassOptions() {
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch(`${API_BASE}/classes`, {
     credentials: "include"
   })
     .then(res => {
@@ -306,7 +306,6 @@ function loadClassOptions() {
     })
     .catch(err => console.error(err));
 }
-
 
 // ===================== SAVE TASK =====================
 function saveTask() {
@@ -335,7 +334,7 @@ function saveTask() {
     return;
   }
 
-  fetch("http://127.0.0.1:5000/assignments", {
+  fetch(`${API_BASE}/assignments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -382,7 +381,6 @@ function saveTask() {
     });
 }
 
-
 // ===================== PAGE NAVIGATION =====================
 function goToRegister() {
   window.location.href = "register.html";
@@ -400,19 +398,18 @@ function goToLogin() {
   window.location.href = "index.html";
 }
 
-
 // ===================== LOAD DASHBOARD DATA =====================
 async function loadDashboardData() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/dashboard-data", {
+    const response = await fetch(`${API_BASE}/dashboard-data`, {
       method: "GET",
       credentials: "include"
     });
 
-     if (response.status === 401) {
-       window.location.href = "index.html";
-       return;
-     }
+    if (response.status === 401) {
+      window.location.href = "index.html";
+      return;
+    }
 
     if (!response.ok) {
       throw new Error("Failed to load dashboard data");
@@ -425,7 +422,6 @@ async function loadDashboardData() {
     console.error("Dashboard error:", error);
   }
 }
-
 
 // ===================== RENDER DASHBOARD DATA =====================
 function renderDashboardData(data) {
@@ -485,10 +481,9 @@ function renderDashboardData(data) {
   }
 }
 
-
 // ===================== LOAD TASK OPTIONS FOR REMINDERS =====================
 function loadReminderTaskOptions() {
-  fetch("http://127.0.0.1:5000/tasks", {
+  fetch(`${API_BASE}/tasks`, {
     credentials: "include"
   })
     .then(res => {
@@ -514,7 +509,6 @@ function loadReminderTaskOptions() {
     })
     .catch(err => console.error(err));
 }
-
 
 // ===================== LOAD REMINDERS =====================
 function loadReminders() {
@@ -542,7 +536,6 @@ function loadReminders() {
     tableBody.appendChild(row);
   });
 }
-
 
 // ===================== ADD REMINDER =====================
 function addReminder() {
@@ -589,7 +582,6 @@ function addReminder() {
   loadReminders();
 }
 
-
 // ===================== DELETE REMINDER =====================
 function deleteReminder(index) {
   const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
@@ -597,7 +589,6 @@ function deleteReminder(index) {
   localStorage.setItem("reminders", JSON.stringify(reminders));
   loadReminders();
 }
-
 
 // ===================== REMOVE REMINDERS FOR DELETED TASK =====================
 function removeRemindersForTask(taskId) {
@@ -608,10 +599,9 @@ function removeRemindersForTask(taskId) {
   localStorage.setItem("reminders", JSON.stringify(updatedReminders));
 }
 
-
 // ===================== LOAD CLASSES =====================
 function loadClasses() {
-  fetch("http://127.0.0.1:5000/classes", {
+  fetch(`${API_BASE}/classes`, {
     credentials: "include"
   })
     .then(res => {
@@ -641,7 +631,6 @@ function loadClasses() {
     })
     .catch(err => console.error(err));
 }
-
 
 // ===================== PAGE LOAD HANDLER =====================
 document.addEventListener("DOMContentLoaded", () => {

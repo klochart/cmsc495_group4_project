@@ -74,7 +74,7 @@ def login():
     else:
         return jsonify({'message': 'Invalid password'}), 401  # Incorrect password
 
-@main.route('/logout')
+@main.route('/logout', methods=['POST'])
 @login_required
 def logout():
     #logs out current user

@@ -25,8 +25,12 @@ def create_app():
 
     #update
     CORS(app,
-         supports_credentials=True, 
-         origins=["*"])
+         supports_credentials=True,
+         origins=[
+             "http://localhost:8000",
+             "http://127.0.0.1:8000",
+             "https://cmsc495-group4-project.onrender.com"
+         ])
 
     #"http://localhost:8000",  #python http.server
    # "http://127.0.0.1:8000"
